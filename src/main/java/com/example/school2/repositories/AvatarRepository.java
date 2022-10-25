@@ -1,9 +1,8 @@
 package com.example.school2.repositories;
 
 import com.example.school2.models.AvatarEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.Collection;
+public interface AvatarRepository extends PagingAndSortingRepository<AvatarEntity,Long> {
 
-public interface AvatarRepository extends JpaRepository<AvatarEntity,Long> {
 }

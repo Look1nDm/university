@@ -49,9 +49,8 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     @Override
-    public Collection<AvatarDto> getPageAvatars(Integer page, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(page,pageSize);
-        return AvatarUtils.migrateEntityToDtoCollection(avatarRepository.findAll(pageRequest).getContent());
+    public PageRequest getPageAvatars(Integer page, Integer pageSize) {
+        return PageRequest.of(page,pageSize);
     }
 
     public AvatarEntity findAvatar(Long studentId){
