@@ -7,6 +7,7 @@ import com.example.school2.models.AvatarEntity;
 import com.example.school2.repositories.AvatarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,8 +50,8 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     @Override
-    public PageRequest getPageAvatars(Integer page, Integer pageSize) {
-        return PageRequest.of(page,pageSize);
+    public Page getPageAvatars(Integer page, Integer pageSize) {
+        return avatarRepository.findAll(PageRequest.of(page,pageSize));
     }
 
     public AvatarEntity findAvatar(Long studentId){

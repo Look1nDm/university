@@ -5,6 +5,7 @@ import com.example.school2.models.AvatarEntity;
 import com.example.school2.repositories.AvatarRepository;
 import com.example.school2.services.AvatarServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -55,7 +56,7 @@ public class AvatarController {
         }
     }
     @GetMapping("/avatars-page")
-    public PageRequest avatarsPage(@RequestParam Integer page, Integer pageSize){
+    public Page avatarsPage(@RequestParam Integer page, Integer pageSize){
         return avatarService.getPageAvatars(page,pageSize);
     }
 }
