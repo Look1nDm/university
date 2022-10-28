@@ -6,6 +6,8 @@ import com.example.school2.dto.StudentDto;
 import com.example.school2.models.AvatarEntity;
 import com.example.school2.repositories.AvatarRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Service
@@ -28,7 +29,10 @@ public class AvatarServiceImpl implements AvatarService {
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
 
+    Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
+
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
+        logger.info("Вызван метод для загрузки аватара в базу");
         StudentDto student = studentService.getStudent(studentId);
         Path filePath = Path.of(avatarsDirectory, student + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -47,10 +51,13 @@ public class AvatarServiceImpl implements AvatarService {
         avatar.setMediaType(avatarFile.getContentType());
         avatar.setData(avatarFile.getBytes());
         avatarRepository.save(AvatarUtils.migrateDtoToEntity(avatar));
+        logger.error("Методы не удалось загрузить аватар");
+        logger.info("Метод загрузил аватар в базу");
     }
 
     @Override
     public Page getPageAvatars(Integer page, Integer pageSize) {
+        logger.info("Метод выводит страницу заданного размера");
         return avatarRepository.findAll(PageRequest.of(page,pageSize));
     }
 
