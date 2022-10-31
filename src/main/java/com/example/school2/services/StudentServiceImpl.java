@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -87,4 +89,20 @@ public class StudentServiceImpl implements StudentService {
         return StudentUtils.migrateEntityToDtoCollection(studentRepository.findFiveLastStudents());
     }
 
+    @Override
+    public Collection<String> getAllStudentsWithFirstLatter(String firstLatter) {
+        return getAllStudentsDto().stream()
+                .map(e -> e.getName().toUpperCase()).sorted()
+                .filter(e->e.startsWith(firstLatter.toUpperCase())).toList();
+        // я же правильно понял, что нужны только студенты у которых имена на А(ну или любой другой символ)
+        // и их уже нужно отсортировать, или же просто нудно всех студентов отсортировать в алфавитном порядке?
+    }
+
+    @Override
+    public Double getAvgAge() {
+        return getAllStudentsDto().stream()
+                .map(StudentDto::getAge)
+                .reduce(0, Integer::sum)
+                .doubleValue()/ getAllStudentsDto().size();
+    }
 }

@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -68,5 +70,17 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<StudentDto> getStudentsOfFaculty(Long id) {
         logger.info(" Метод возвращает студентов, обущающихся на фаультете № "+id);
         return StudentUtils.migrateEntityToDtoCollection(studentRepository.findStudentEntityByFacultyId(id));
+    }
+
+    @Override
+    public String getLongFacultyName() {
+        return String.valueOf(getAllFaculties().stream()
+                .map(FacultyDto::getName)
+                .max(Comparator.comparing(String::length)).orElseThrow());
+    }
+    public Integer megaSum(){
+        return Stream.iterate(1, a -> a +1).parallel()
+                .limit(1_000_000)
+                .reduce(0, Integer::sum);
     }
 }

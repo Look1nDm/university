@@ -25,4 +25,8 @@ public interface StudentService {
     Long getCountAllStudents();
     Double getAvgAgeStudents();
     Collection<StudentDto> getFiveLastStudents();
+
+    Collection<String> getAllStudentsWithFirstLatter(String startName);
+
+    Double getAvgAge();
 }

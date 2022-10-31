@@ -14,18 +14,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-    //еще вопрос, правильно ли заинжекчена эта зависимость , или же нужно интерфейс инжектить?
-    //не могу понять почему он выдает ошибку создания бина контроллера, тут же ломбок должен
-    // все делать вместо конструктора
-    // мы должны же инжектить класс сервиса , а не интерфейс?
-    private final StudentService studentService; // в пол первого ночи понял , что нужно интерфейс
 
-    //посмотри пожалуйста обзую логику:
-    // правильно ли я понимаю что в контроллере мы передаем ентити в сервис
-    // в сервисе мы переделываем его в ДТО(т.к. маппер я не подключил)
-    // и возвращаем обратно ДТО. Если так , стоит ли использовать в контроллере
-    // ResponseEntity ? Понимаю, что наименовая методов и эндпоинтов хромают,
-    // не обращай пожалуйста на это внимание))
+    private final StudentService studentService;
+
     @PostMapping("/create")
     public ResponseEntity<StudentDto> createStudent(@RequestBody StudentEntity entity) {
         return ResponseEntity.ok(studentService.createStudent(entity));
@@ -81,5 +72,13 @@ public class StudentController {
     public ResponseEntity<StudentDto> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/all/{firstLatter}")
+    public ResponseEntity<Collection<String>> getAllStudentsStartName(@PathVariable String firstLatter){
+        return ResponseEntity.ok(studentService.getAllStudentsWithFirstLatter(firstLatter));
+    }
+    @GetMapping("/avgAgeStudents")
+    public ResponseEntity<Double> getAvgAge(){
+        return ResponseEntity.ok(studentService.getAvgAge());
     }
 }

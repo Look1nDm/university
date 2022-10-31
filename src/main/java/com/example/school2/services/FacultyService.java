@@ -20,4 +20,5 @@ public interface FacultyService {
     FacultyDto getFacultyByColor(String color);
     FacultyDto getFacultyByName(String name);
     Collection<StudentDto> getStudentsOfFaculty(Long id);
+    String getLongFacultyName();
 }
