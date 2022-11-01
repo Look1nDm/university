@@ -99,7 +99,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Double getAvgAge() {
+    public Double getAvgAgeStudentStream() {
         return getAllStudentsDto().stream()
                 .map(StudentDto::getAge)
                 .reduce(0, Integer::sum)

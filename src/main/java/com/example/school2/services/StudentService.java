@@ -28,5 +28,5 @@ public interface StudentService {
 
     Collection<String> getAllStudentsWithFirstLatter(String startName);
 
-    Double getAvgAge();
+    Double getAvgAgeStudentStream();
 }
