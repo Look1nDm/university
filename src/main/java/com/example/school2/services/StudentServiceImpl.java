@@ -101,8 +101,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Double getAvgAgeStudentStream() {
         return getAllStudentsDto().stream()
-                .map(StudentDto::getAge)
-                .reduce(0, Integer::sum)
-                .doubleValue()/ getAllStudentsDto().size();
+                .mapToInt(StudentDto::getAge).average().orElseThrow();
     }
 }
