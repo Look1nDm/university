@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
@@ -22,4 +23,6 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
     @Query(value = "SELECT * FROM student_entity ORDER BY id DESC LIMIT 5", nativeQuery = true)
     Collection<StudentEntity> findFiveLastStudents();
+    @Query(value = "SELECT name FROM student_entity", nativeQuery = true)
+    List<String> getNamesStudents();
 }

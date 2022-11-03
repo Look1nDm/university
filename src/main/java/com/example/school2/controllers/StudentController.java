@@ -81,4 +81,12 @@ public class StudentController {
     public ResponseEntity<Double> getAvgAge(){
         return ResponseEntity.ok(studentService.getAvgAgeStudentStream());
     }
+    @GetMapping("/sixStudentsNames")
+    public void getSixStudentsNames(){
+        studentService.getSixStudentsNames();
+    }
+    @GetMapping("/synchronizedStudentsNames")
+    public void synchronizedGetStudentsNames(){
+        studentService.synchronizedGetStudentsNames();
+    }
 }
