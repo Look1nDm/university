@@ -7,6 +7,7 @@ import com.example.school2.dto.StudentDto;
 import com.example.school2.models.StudentEntity;
 import com.example.school2.repositories.FacultyRepository;
 import com.example.school2.repositories.StudentRepository;
+import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,19 +117,17 @@ public class StudentServiceImpl implements StudentService {
     }
     @Override
     public void synchronizedGetStudentsNames() {
-        List<String> listStudents = studentRepository.getNamesStudents();
-        printName(listStudents.get(0));
-        printName(listStudents.get(1));
+        printName(0,1);
         new Thread(()->{
-            printName(listStudents.get(2));
-            printName(listStudents.get(3));
+            printName(2,3);
         }).start();
         new Thread(()->{
-            printName(listStudents.get(4));
-            printName(listStudents.get(5));
+            printName(4,5);
         }).start();
     }
-    public synchronized void printName(String name){
-        System.out.println(name);
+    public synchronized void printName(int name1,int name2){
+        List<String> listStudents = studentRepository.getNamesStudents();
+        System.out.println(listStudents.get(name1));
+        System.out.println(listStudents.get(name2));
     }
 }
