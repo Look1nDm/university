@@ -5,7 +5,9 @@ import com.example.school2.models.StudentEntity;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
+/*
+ migrate student to dtoStudent and back
+ */
 public class StudentUtils {
     public static StudentDto migrateEntityToDto(StudentEntity entity) {
         return new StudentDto(entity.getId(),entity.getName(),entity.getAge());

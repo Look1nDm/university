@@ -5,7 +5,9 @@ import com.example.school2.models.AvatarEntity;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
+/*
+ migrate avatar to dtoAvatar and back
+ */
 public class AvatarUtils {
 
     public static AvatarDto migrateEntityToDto(AvatarEntity entity) {

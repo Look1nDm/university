@@ -7,7 +7,6 @@ import com.example.school2.dto.StudentDto;
 import com.example.school2.models.StudentEntity;
 import com.example.school2.repositories.FacultyRepository;
 import com.example.school2.repositories.StudentRepository;
-import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

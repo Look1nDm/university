@@ -62,6 +62,7 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     public AvatarEntity findAvatar(Long studentId){
+        logger.info("Метод ищет аватар по id студента");
         return avatarRepository.findById(studentId)
                 .orElse(new AvatarEntity());
     }

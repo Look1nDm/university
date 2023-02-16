@@ -6,6 +6,9 @@ import com.example.school2.models.FacultyEntity;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/*
+ migrate faculty to dtoFaculty and back
+ */
 public class FacultyUtils {
     public static FacultyDto migrateEntityToDto(FacultyEntity entity) {
         return new FacultyDto(entity.getId(),entity.getName(),entity.getColor());
