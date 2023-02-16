@@ -1,12 +1,10 @@
 package com.example.school2.controllers;
 
-import com.example.school2.dto.AvatarDto;
 import com.example.school2.models.AvatarEntity;
 import com.example.school2.repositories.AvatarRepository;
 import com.example.school2.services.AvatarServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +18,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,12 +26,18 @@ public class AvatarController {
     private final AvatarServiceImpl avatarService;
     private final AvatarRepository avatarRepository;
 
+    /*
+    endpoint add avatar to a student
+     */
     @PostMapping(value = "/{studentId}/avatar",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId,
                                                @RequestParam MultipartFile avatar) throws IOException {
         avatarService.uploadAvatar(studentId,avatar);
         return ResponseEntity.ok().build();
     }
+    /*
+    endpoint download avatar from db
+     */
     @GetMapping(value = "/{id}/avatar-from-db")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long id) {
         AvatarEntity avatar = avatarRepository.findById(id).orElseThrow();
@@ -43,6 +46,9 @@ public class AvatarController {
         headers.setContentLength(avatar.getData().length);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
+    /*
+    endpoint download avatar from file
+     */
     @GetMapping(value = "/{id}/avatar-from-file")
     public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException {
         AvatarEntity avatar = avatarService.findAvatar(id);

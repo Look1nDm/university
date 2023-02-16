@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -94,13 +93,40 @@ public class StudentServiceImpl implements StudentService {
         return getAllStudentsDto().stream()
                 .map(e -> e.getName().toUpperCase()).sorted()
                 .filter(e->e.startsWith(firstLatter.toUpperCase())).toList();
-        // я же правильно понял, что нужны только студенты у которых имена на А(ну или любой другой символ)
-        // и их уже нужно отсортировать, или же просто нудно всех студентов отсортировать в алфавитном порядке?
     }
 
     @Override
     public Double getAvgAgeStudentStream() {
         return getAllStudentsDto().stream()
                 .mapToInt(StudentDto::getAge).average().orElseThrow();
+    }
+    @Override
+    public void getSixStudentsNames() {
+        List<String> listStudents = studentRepository.getNamesStudents();
+        System.out.println(listStudents.get(0));
+        System.out.println(listStudents.get(1));
+        new Thread(()->{
+            System.out.println(listStudents.get(2));
+            System.out.println(listStudents.get(3));
+        }).start();
+        new Thread(()->{
+            System.out.println(listStudents.get(4));
+            System.out.println(listStudents.get(5));
+        }).start();
+    }
+    @Override
+    public void synchronizedGetStudentsNames() {
+        printName(0,1);
+        new Thread(()->{
+            printName(2,3);
+        }).start();
+        new Thread(()->{
+            printName(4,5);
+        }).start();
+    }
+    public synchronized void printName(int name1,int name2){
+        List<String> listStudents = studentRepository.getNamesStudents();
+        System.out.println(listStudents.get(name1));
+        System.out.println(listStudents.get(name2));
     }
 }
